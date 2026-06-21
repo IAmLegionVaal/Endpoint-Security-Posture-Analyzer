@@ -1,29 +1,31 @@
 # Endpoint Security Posture Analyzer
 
-A read-only PowerShell toolkit that summarizes important Windows endpoint security controls.
+PowerShell tools for summarising Windows endpoint security posture and applying guarded defensive repairs.
 
-## Coverage
-
-- Operating-system and device context
-- Microsoft Defender status
-- Windows Firewall profiles
-- BitLocker, TPM, and Secure Boot
-- Local administrator membership summary
-- Windows Update recency
-- PowerShell logging configuration
-- SMB and Remote Desktop status
-- Prioritized findings and a simple posture score
-
-## Run
+## Analyze
 
 ```powershell
 powershell.exe -ExecutionPolicy Bypass -File .\Endpoint_Security_Posture_Analyzer.ps1
 ```
 
-## Output
+## Repair
 
-CSV findings, JSON evidence, HTML report, and supporting inventory files.
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\Endpoint_Security_Posture_Repair_Toolkit.ps1 -EnableFirewall -DryRun
+```
 
-## Safety
+Examples:
 
-Read-only reporting. No endpoint settings are changed.
+```powershell
+.\Endpoint_Security_Posture_Repair_Toolkit.ps1 -EnableFirewall -EnableDefender
+.\Endpoint_Security_Posture_Repair_Toolkit.ps1 -RunQuickScan
+.\Endpoint_Security_Posture_Repair_Toolkit.ps1 -DisableRemoteDesktop
+.\Endpoint_Security_Posture_Repair_Toolkit.ps1 -DisableSmb1
+.\Endpoint_Security_Posture_Repair_Toolkit.ps1 -ResumeBitLocker C
+```
+
+The repair script captures firewall, Defender, RDP, SMB and BitLocker state before and after repair. It supports `-DryRun`, confirmation, logs and clear exit codes. Remote Desktop disablement may interrupt remote support sessions.
+
+## Author
+
+Dewald Pretorius — L2 IT Support Engineer
